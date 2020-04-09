@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhongruan.dao.IRoleDao">
+
+
+    <select id="findAllRole" resultType="com.zhongruan.bean.Role">
+        select * from tb_role
+    </select>
+
+    <insert id="addRole" parameterType="com.zhongruan.bean.Role">
+        insert into tb_role(rname, rdesc) values(#{rname},#{rdesc})
+    </insert>
+
+    <delete id="delRoleById" parameterType="Integer">
+        delete from tb_role where rid=#{rid}
+    </delete>
+
+
+    <!--  根据用户ID去查询role角色  -->
+    <select id="findRoleByUserId" parameterType="Integer" resultType="com.zhongruan.bean.Role">
+        select * from tb_role where rid in(select rid from tb_user_role where uid=#{uid})
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhongruan.dao.IUserInfoDao">
+    <!--  验证登陆   -->
+    <select id="doLogin" parameterType="java.lang.String" resultType="com.zhongruan.bean.UserInfo">
+        select * from tb_user where username=#{username}
+    </select>
+
+    <!-- 全部查询   -->
+    <select id="findAll" resultType="com.zhongruan.bean.UserInfo">
+        select * from tb_user
+    </select>
+
+
+    <!--  增加   -->
+    <insert id="addUser" parameterType="com.zhongruan.bean.UserInfo">
+        insert into tb_user(id,username,password) values(#{id},#{username},#{password})
+    </insert>
+
+    <!--  删除  -->
+    <delete id="delUserById" parameterType="Integer">
+        delete from tb_user where id=#{id}
+    </delete>
+
+    <!--  修改前的查询  -->
+    <select id="updSelUserInfoById" parameterType="Integer" resultType="com.zhongruan.bean.UserInfo">
+        select * from tb_user where id=#{id}
+    </select>
+
+    <!--  修改   -->
+    <update id="updUserInfo" parameterType="com.zhongruan.bean.UserInfo">
+        update tb_user set username=#{username}, password=#{password} where id=#{id}
+    </update>
+
+</mapper>

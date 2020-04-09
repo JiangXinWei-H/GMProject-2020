@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <!-- 1.注解扫描位置-->
+    <context:component-scan base-package="com.zhongruan.controller" />
+
+    <!-- 支持springMVC的注解: -->
+    <!-- <mvc:annotation-driven/>代替了配置处理器映射器
+        （HandlerMapping）和处理器适配器（HandlerAdapter）
+     -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!-- 2.配置映射处理和适配器-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+
+    <!-- 3.视图的解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!--  4. 配置拦截器   -->
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash;    拦截所有的mvc控制器  &ndash;&gt;-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            &lt;!&ndash;    放行机制，可以测试/制定对某一个页面不进行拦截         &ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/user/doLogin.do"/>-->
+<!--            &lt;!&ndash;    指定使用哪一个拦截器         &ndash;&gt;-->
+<!--            <bean class="com.zhongruan.interceptor.LoginInterceptor"></bean>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+
+
+    <!--   配置图片上传  -->
+    <!--  指出上传时，参数封装所用到的处理器是：
+            CommonsMultipartResolver, 使用时，采用multipartResolver 固定名进行引用
+      -->
+    <bean id="multipartResolver" name="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="maxUploadSize" value="10240000" />
+        <!--  需要上传文件的时候，一定要加上    uploadTempDir   -->
+        <!--      <property name="uploadTempDir"-->
+    </bean>
+
+</beans>
